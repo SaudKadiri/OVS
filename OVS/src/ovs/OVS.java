@@ -37,18 +37,19 @@ public class OVS {
         Connection connect = null;
         Statement stmnt = null; 
         try {
-            Class.forName("com.mysql.ci.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost/OVS", "root", "group7");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost/ovs", "root", "group7");
         } catch (ClassNotFoundException ex) {
-            System.out.println("Execption");
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
         stmnt = connect.createStatement();
-        
-        int rows_affected = stmnt.executeUpdate("INSERT INTO 'voter' ('ID', 'password', 'address', 'birth_place', 'date_of_birth', 'email', 'name', 'phone_number', 'gender', 'job', 'martial_status', 'cast_status')" +
-                                                    "VALUES ( "+ID+" "+password+"  "+address+" "+birth_place+" "+date_of_birth+" "+email+" "+name+" "+phone_number+" "+gender+" "+job+" "+martial_status+" "+cast_status+")" );
+        String sep = "', '";
+        System.out.println("INSERT INTO voter " + 
+                "VALUES ( '" + ID + sep + password +  sep + address + sep + birth_place + sep + date_of_birth + sep + email + sep +  name + sep + phone_number + sep +  gender + sep + job + sep +  martial_status + sep + cast_status + "');");
+        int rows_affected = stmnt.executeUpdate("INSERT INTO voter " + 
+                "VALUES ( '" + ID + sep + password +  sep + address + sep + birth_place + sep + date_of_birth + sep + email + sep +  name + sep + phone_number + sep +  gender + sep + job + sep +  martial_status + sep + '0' + "');");
         System.out.println(rows_affected);
         if (connect != null) {
             connect.close();
@@ -56,5 +57,6 @@ public class OVS {
         if (stmnt != null) {
             stmnt.close();
         }
+        
     }
 }
