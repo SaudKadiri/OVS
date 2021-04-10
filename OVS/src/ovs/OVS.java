@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author blest
+ * @author Anas Khan & Saud Kadiri @ Group 7
  */
 public class OVS {
 

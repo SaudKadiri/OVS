@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 /**
  *
- * @author blest
+ * @author Saud Kadiri @ Group 7
  */
 public class pushParticipantDetailsFrame extends javax.swing.JFrame {
 
