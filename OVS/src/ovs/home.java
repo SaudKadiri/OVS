@@ -8,7 +8,7 @@ package ovs;
 
 /**
  *
- * @author Group 7
+ * @author Saud Kadiri @ Group 7
  */
 public class home extends javax.swing.JFrame {
 

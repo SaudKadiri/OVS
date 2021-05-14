@@ -38,11 +38,15 @@ public class OVS {
         Statement stmnt = null; 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost/ovs", "root", "group7");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost/ovs", "root", "saud");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        ID = cipher(ID);
+        address = cipher(address);
+        email = cipher(email);
+        name = cipher(name);
+        phone_number = Integer.parseInt(cipher(Integer.toString(phone_number)));
         
         stmnt = connect.createStatement();
         String sep = "', '";
@@ -58,5 +62,68 @@ public class OVS {
             stmnt.close();
         }
         
+    }
+    private static final char[] KEY = "STREKYZVOGDXPJNCUIALFBMWHQ".toCharArray();
+
+    private String cipher(String string)
+    {
+        int i;
+        String result = "";
+        char[] text = string.toCharArray();
+        //formulate the ciphertext
+        for (char ch: text) {
+            if (Character.isLetter(ch))  {
+                if (Character.isUpperCase(ch)) {
+                    i = (int) ch - 65;
+                    result += KEY[i];
+                } else {
+                    i = (int)ch - 97;
+                    result += (char)((int)KEY[i] + 32);
+                }
+            } else {
+                if (Character.isDigit(ch)) {
+                    i = (int)ch - 48;
+                    i = (i + 7) % 10;
+                    result += (char)(i + 48);
+                } else {
+                    result += ch;
+                }
+            }
+        }
+        return result;
+    }
+    private static String decipher(String string) {
+        String result = "";
+        char[] text = string.toCharArray();
+        for (char ch: text) {
+            if (Character.isLetter(ch))  {
+                if (Character.isUpperCase(ch)) {
+                    result+=(char) (65 + position(ch));
+                } else {
+                    result += (char)(97 + position(ch));
+                }
+            } else {
+                if (Character.isDigit(ch)) {
+                    int i = (int) ch - 48;
+                    i = (i + 3) % 10;
+                    result += (char)(i + 48);   
+                } else {
+                    result += ch;
+                }
+            }
+        }
+        return result;
+    }   
+    
+    private static int position(char c) {
+        c = Character.toUpperCase(c);
+        int i = 0;
+        for (char ch: KEY) {
+            if (ch == c) {
+                return i;
+            }
+            i++;
+        }
+        return 0;
     }
 }
