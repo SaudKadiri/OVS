@@ -5,6 +5,8 @@
  */
 package ovs;
 
+
+import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -33,27 +35,30 @@ public class participantFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        volter_login = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         enter_id_field = new javax.swing.JTextField();
         enter_password_field = new javax.swing.JTextField();
+        login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        volter_login.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
-        volter_login.setText("Log in");
-        volter_login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                volter_loginActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 2, 36)); // NOI18N
         jLabel1.setText("PASSWORD    ");
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 2, 36)); // NOI18N
         jLabel2.setText("Voter ID  ");
+
+        login.setText("jButton2");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    loginActionPerformed(evt);
+                } catch (SQLException ex) {
+                    System.exit(1);
+                }
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,12 +70,14 @@ public class participantFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(volter_login, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(enter_id_field)
-                        .addComponent(enter_password_field, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(enter_id_field)
+                    .addComponent(enter_password_field, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(login)
+                .addGap(389, 389, 389))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,15 +90,15 @@ public class participantFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(enter_password_field, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
-                .addComponent(volter_login, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(54, 54, 54)
+                .addComponent(login)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void volter_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volter_loginActionPerformed
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) throws SQLException{//GEN-FIRST:event_loginActionPerformed
         Connection connect = null;
         Statement stmnt = null; 
         try {
@@ -100,18 +107,20 @@ public class participantFrame extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Cryptography decrypt = new Cryptography();
         stmnt = connect.createStatement();
         String entered_id = enter_id_field.getText();
         String entered_pwd = enter_password_field.getText();
-        Boolean is_valid = stmnt.execute("SELECT id, password\n" + "FROM voter" + "WHERE EXISTS" + "(SELECT id, password FROM voter WHERE id = " + entered_id + "AND " + "password = " entered_pwd");")
-        if (is_valid) {
-            adminRightsFrame adminRightsFrame = new adminRightsFrame();
-            adminRightsFrame.show();
-            dispose();
+        Boolean is_valid = stmnt.execute("SELECT EXISTS(SELECT ID, password FROM voter WHERE ID = " + decrypt.decipher(entered_id) + " AND password = " + "'" + entered_pwd + "'" + ");");
+        
+        System.out.println(is_valid);
+        if (is_valid == true) {
+           System.out.println("Success");
+           
         } else {
             System.exit(1);
-        }
-    }//GEN-LAST:event_volter_loginActionPerformed
+        } 
+    }//GEN-LAST:event_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,6 +162,6 @@ public class participantFrame extends javax.swing.JFrame {
     private javax.swing.JTextField enter_password_field;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JButton volter_login;
+    private javax.swing.JButton login;
     // End of variables declaration//GEN-END:variables
 }
