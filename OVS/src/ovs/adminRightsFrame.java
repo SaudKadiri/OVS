@@ -6,6 +6,7 @@
 package ovs;
 
 
+import java.sql.SQLException;
 
 /**
  *
@@ -40,7 +41,12 @@ public class adminRightsFrame extends javax.swing.JFrame {
         jLabel1.setText("Admin, what do you want to do? ");
 
         removeParticipantBtn.setFont(new java.awt.Font("Ubuntu", 3, 24)); // NOI18N
-        removeParticipantBtn.setText("Remove Participant");
+        removeParticipantBtn.setText("Get Result  ");
+        removeParticipantBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeParticipantBtnActionPerformed(evt);
+            }
+        });
 
         addParticipantBtn1.setFont(new java.awt.Font("Ubuntu", 3, 24)); // NOI18N
         addParticipantBtn1.setText("Add Participant");
@@ -96,6 +102,15 @@ public class adminRightsFrame extends javax.swing.JFrame {
         new pushParticipantDetailsFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_addParticipantBtn1ActionPerformed
+
+    private void removeParticipantBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeParticipantBtnActionPerformed
+        Runoff runoff = new Runoff();
+        try {
+            runoff.main(null);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_removeParticipantBtnActionPerformed
 
     /**
      * @param args the command line arguments

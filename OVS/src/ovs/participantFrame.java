@@ -49,13 +49,14 @@ public class participantFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 2, 36)); // NOI18N
         jLabel2.setText("Voter ID  ");
 
-        login.setText("jButton2");
+        login.setFont(new java.awt.Font("Ubuntu", 3, 24)); // NOI18N
+        login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     loginActionPerformed(evt);
                 } catch (SQLException ex) {
-                    System.exit(1);
+                    System.out.println("Error!");
                 }
             }
         });
@@ -71,13 +72,11 @@ public class participantFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(enter_id_field)
-                    .addComponent(enter_password_field, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+                    .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(enter_id_field)
+                        .addComponent(enter_password_field, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)))
                 .addContainerGap(304, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(login)
-                .addGap(389, 389, 389))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,9 +89,9 @@ public class participantFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(enter_password_field, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
-                .addComponent(login)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,20 +104,24 @@ public class participantFrame extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost/ovs", "root", "saud");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("UH... Oh...");
+            Logger.getLogger(participantFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         Cryptography decrypt = new Cryptography();
         stmnt = connect.createStatement();
         String entered_id = enter_id_field.getText();
         String entered_pwd = enter_password_field.getText();
-        Boolean is_valid = stmnt.execute("SELECT EXISTS(SELECT ID, password FROM voter WHERE ID = " + decrypt.decipher(entered_id) + " AND password = " + "'" + entered_pwd + "'" + ");");
+        System.out.println("SELECT EXISTS(SELECT id, password FROM voter WHERE id = '" + decrypt.cipher(entered_id) + "' AND password = " + "'" + decrypt.cipher(entered_pwd) + "'" + " LIMIT 1);");
+        Boolean is_valid =  stmnt.execute("SELECT EXISTS(SELECT id, password FROM voter WHERE id = '" + decrypt.cipher(entered_id) + "' AND password = " + "'" + decrypt.cipher(entered_pwd) + "' );");
         
         System.out.println(is_valid);
         if (is_valid == true) {
-           System.out.println("Success");
-           
+           System.out.println("VALID");
+           RegisterVote registeration = new RegisterVote();
+           registeration.show();
+           dispose();
         } else {
-            System.exit(1);
+            System.out.println("No such record.");
         } 
     }//GEN-LAST:event_loginActionPerformed
 

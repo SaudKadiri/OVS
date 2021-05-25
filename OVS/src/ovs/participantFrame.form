@@ -31,15 +31,11 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="login" pref="230" max="32767" attributes="0"/>
                   <Component id="enter_id_field" max="32767" attributes="0"/>
                   <Component id="enter_password_field" pref="230" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="304" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="login" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="389" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,9 +52,9 @@
                   <Component id="jLabel1" min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="enter_password_field" min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-              <Component id="login" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="108" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Component id="login" min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace pref="98" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -86,7 +82,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="login">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ubuntu" size="24" style="3"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginActionPerformed"/>

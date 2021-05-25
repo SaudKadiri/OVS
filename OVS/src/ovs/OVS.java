@@ -22,6 +22,15 @@ public class OVS {
      * @param args the command line arguments
      * sudo service apache2 start
      */
+    Connection connect = null;
+    private void OVS() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            this.connect = DriverManager.getConnection("jdbc:mysql://localhost/ovs", "root", "saud");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void insert(String ID, 
                        String password,
                        String address,
@@ -29,7 +38,7 @@ public class OVS {
                        String date_of_birth,
                        String email,
                        String name,
-                       int phone_number,
+                       String phone_number,
                        char gender, 
                        String job, 
                        char martial_status,
@@ -48,15 +57,17 @@ public class OVS {
         address = crypt.cipher(address);
         email = crypt.cipher(email);
         name = crypt.cipher(name);
-        phone_number = Integer.parseInt(crypt.cipher(Integer.toString(phone_number)));
         birth_place = crypt.cipher(birth_place);
+        phone_number = crypt.cipher(phone_number);
+        password = crypt.cipher(password);
+        
 
         stmnt = connect.createStatement();
         String sep = "', '";
         System.out.println("INSERT INTO voter " + 
-                "VALUES ( '" + ID + sep + password +  sep + address + sep + birth_place + sep + date_of_birth + sep + email + sep +  name + sep + phone_number + sep +  gender + sep + job + sep +  martial_status + sep + cast_status + "');");
+                "VALUES ( '" + ID + sep + password +  sep + address + sep + birth_place + sep + date_of_birth + sep + email + sep +  name + sep + phone_number + sep +  gender + sep + job + sep +  martial_status + sep + cast_status + "', '', '', '', '' );");
         int rows_affected = stmnt.executeUpdate("INSERT INTO voter " + 
-                "VALUES ( '" + ID + sep + password +  sep + address + sep + birth_place + sep + date_of_birth + sep + email + sep +  name + sep + phone_number + sep +  gender + sep + job + sep +  martial_status + sep + '0' + "');");
+                "VALUES ( '" + ID + sep + password +  sep + address + sep + birth_place + sep + date_of_birth + sep + email + sep +  name + sep + phone_number + sep +  gender + sep + job + sep +  martial_status + sep + '0' + "', '', '', '', '' );");
         System.out.println(rows_affected);
         if (connect != null) {
             connect.close();

@@ -5,12 +5,18 @@
  */
 package ovs;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author blest
  */
 public class RegisterVote extends javax.swing.JFrame {
-
     /**
      * Creates new form RegisterVote
      */
@@ -27,79 +33,213 @@ public class RegisterVote extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        candidate_selector = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        candidate2_selector = new javax.swing.JComboBox<>();
+        ch4lbl = new javax.swing.JLabel();
         submit_vote = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        ch1lbl = new javax.swing.JLabel();
+        ch2 = new javax.swing.JLabel();
+        ch4 = new javax.swing.JLabel();
+        candidate1_selector = new javax.swing.JComboBox<>();
+        candidate4_selector = new javax.swing.JComboBox<>();
+        candidate3_selector = new javax.swing.JComboBox<>();
+        confirm_id = new javax.swing.JTextField();
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        candidate_selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        candidate_selector.addActionListener(new java.awt.event.ActionListener() {
+        candidate2_selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Isaac", "2 Harry", "3 Alex", "4 Charles" }));
+        candidate2_selector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                candidate_selectorActionPerformed(evt);
+                candidate2_selectorActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
-        jLabel1.setText("Your preferred Candidate:  ");
-
-        jCheckBox1.setFont(new java.awt.Font("Ubuntu", 3, 24)); // NOI18N
-        jCheckBox1.setText("  Confirm vote");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
+        ch4lbl.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        ch4lbl.setText("   4th Rank:   ");
 
         submit_vote.setFont(new java.awt.Font("Ubuntu", 3, 24)); // NOI18N
-        submit_vote.setForeground(new java.awt.Color(238, 236, 236));
+        submit_vote.setForeground(new java.awt.Color(249, 1, 1));
         submit_vote.setText("Submit ");
+        submit_vote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    submit_voteActionPerformed(evt);
+                } catch (SQLException exp) {
+                    System.out.println(exp);
+                }
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        jLabel2.setText("Your preference list:   ");
+
+        ch1lbl.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        ch1lbl.setText("    1st Rank:   ");
+
+        ch2.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        ch2.setText("    2nd Rank:   ");
+
+        ch4.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        ch4.setText("   3rd Rank:   ");
+
+        candidate1_selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Isaac", "2 Harry", "3 Alex", "4 Charles" }));
+        candidate1_selector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                candidate1_selectorActionPerformed(evt);
+            }
+        });
+
+        candidate4_selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Isaac", "2 Harry", "3 Alex", "4 Charles" }));
+        candidate4_selector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                candidate4_selectorActionPerformed(evt);
+            }
+        });
+
+        candidate3_selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Isaac", "2 Harry", "3 Alex", "4 Charles" }));
+        candidate3_selector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                candidate3_selectorActionPerformed(evt);
+            }
+        });
+
+        confirm_id.setFont(new java.awt.Font("Ubuntu", 3, 24)); // NOI18N
+        confirm_id.setText("Confirm your ID");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(282, Short.MAX_VALUE)
+                .addContainerGap(322, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(candidate_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(172, 172, 172))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(submit_vote, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(35, 35, 35)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ch1lbl)
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(candidate2_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(candidate1_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(candidate4_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(candidate3_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ch4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(14, 14, 14)
+                                    .addComponent(ch4lbl))
+                                .addComponent(ch2)))
+                        .addGap(332, 332, 332)))
+                .addGap(147, 147, 147))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(confirm_id, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(submit_vote, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ch1lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(candidate1_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(candidate_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(submit_vote, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(candidate2_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(candidate3_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ch2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ch4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ch4lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(candidate4_selector, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(submit_vote, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirm_id))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void candidate_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_candidate_selectorActionPerformed
+    private void candidate2_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_candidate2_selectorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_candidate_selectorActionPerformed
+    }//GEN-LAST:event_candidate2_selectorActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void submit_voteActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_submit_voteActionPerformed
+        String[] choices = {"flxvvcxr" + candidate1_selector.getSelectedItem().toString().charAt(0) + "u", "flxvvcxr" + candidate2_selector.getSelectedItem().toString().charAt(0) + "u",
+                            "flxvvcxr" + candidate3_selector.getSelectedItem().toString().charAt(0) + "u", "flxvvcxr" + candidate4_selector.getSelectedItem().toString().charAt(0) + "u"
+                           };
+        String id = confirm_id.getText();
+        Connection connect = null;
+        Statement stmnt = null; 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost/ovs", "root", "saud");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Cryptography encrypt = new Cryptography();
+        stmnt = connect.createStatement();
+        
+        for (int i = 0; i < 4; i++) {
+            System.out.println("UPDATE voter SET choice" + (i + 1) + " = '" + choices[i] + "' WHERE id = '" + encrypt.cipher(id) + "';");
+            int ret = stmnt.executeUpdate("UPDATE voter SET choice" + (i + 1) + " = '" + choices[i] + "' WHERE id = '" + encrypt.cipher(id) + "';");
+            System.out.println(ret);
+        }
+        
+        int ret = stmnt.executeUpdate("Update voter SET cast_status = 1 WHERE id = '" + encrypt.cipher(id) + "';");
+        System.out.println(ret);
+
+        participantFrame participantFrame = new participantFrame();
+        participantFrame.show();
+        dispose();
+
+    }//GEN-LAST:event_submit_voteActionPerformed
+
+    private void candidate1_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_candidate1_selectorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_candidate1_selectorActionPerformed
+
+    private void candidate4_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_candidate4_selectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_candidate4_selectorActionPerformed
+
+    private void candidate3_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_candidate3_selectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_candidate3_selectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,9 +277,22 @@ public class RegisterVote extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> candidate_selector;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox<String> candidate1_selector;
+    private javax.swing.JComboBox<String> candidate2_selector;
+    private javax.swing.JComboBox<String> candidate3_selector;
+    private javax.swing.JComboBox<String> candidate4_selector;
+    private javax.swing.JLabel ch1lbl;
+    private javax.swing.JLabel ch2;
+    private javax.swing.JLabel ch4;
+    private javax.swing.JLabel ch4lbl;
+    private javax.swing.JTextField confirm_id;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton submit_vote;
     // End of variables declaration//GEN-END:variables
 }

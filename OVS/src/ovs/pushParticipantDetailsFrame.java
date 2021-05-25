@@ -52,12 +52,12 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
         emailField = new javax.swing.JTextField();
         phoneNumberField = new javax.swing.JTextField();
         nameField = new javax.swing.JTextField();
-        registerBtn = new javax.swing.JButton();
+        back_homeBtn = new javax.swing.JButton();
         martialBox = new javax.swing.JComboBox<>();
         dateField = new javax.swing.JTextField();
+        registerBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jLabel1.setText("Password:");
 
@@ -112,6 +112,18 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
             }
         });
 
+        back_homeBtn.setFont(new java.awt.Font("Ubuntu", 3, 48)); // NOI18N
+        back_homeBtn.setText("<");
+        back_homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_homeBtnActionPerformed(evt);
+            }
+        });
+
+        martialBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Married", "Unmarried", "Divorced", "Single" }));
+
+        dateField.setText("YYYY/MM/DD");
+
         registerBtn.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
         registerBtn.setText("Register");
         registerBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -119,10 +131,6 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
                 registerBtnActionPerformed(evt);
             }
         });
-
-        martialBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Married", "Unmarried", "Divorced", "Single" }));
-
-        dateField.setText("YYYY/MM/DD");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,39 +142,43 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(141, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel11)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel10)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(115, 115, 115)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(emailField)
-                                        .addComponent(idField)
-                                        .addComponent(passwordField)
-                                        .addComponent(addressField)
-                                        .addComponent(genderBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(birthPlaceField)
-                                        .addComponent(phoneNumberField)
-                                        .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                                        .addComponent(dateField))))
-                            .addComponent(jobField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(martialBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(138, 138, 138))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(115, 115, 115)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(emailField)
+                                .addComponent(idField)
+                                .addComponent(passwordField)
+                                .addComponent(addressField)
+                                .addComponent(genderBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(birthPlaceField)
+                                .addComponent(phoneNumberField)
+                                .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                                .addComponent(dateField))))
+                    .addComponent(jobField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(martialBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(138, 138, 138))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(back_homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(591, Short.MAX_VALUE)
+                    .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,9 +229,14 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(martialBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(registerBtn)
-                .addGap(41, 41, 41))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(back_homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(501, Short.MAX_VALUE)
+                    .addComponent(registerBtn)
+                    .addGap(34, 34, 34)))
         );
 
         pack();
@@ -233,14 +250,13 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
 
+    private void back_homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_homeBtnActionPerformed
+        home home = new home();
+        home.show();
+        dispose();
+    }//GEN-LAST:event_back_homeBtnActionPerformed
+
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
-        // TODO add your handling code here:
-        int phone_number;
-        try {
-           phone_number = Integer.parseInt(phoneNumberField.getText());
-        } catch (NumberFormatException e) {
-           phone_number = 0;
-        }
         OVS ovsObj = new OVS();
         try {
             ovsObj.insert(idField.getText(),
@@ -250,7 +266,7 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
                           dateField.getText(),
                           emailField.getText(),
                           nameField.getText(),
-                          phone_number,
+                          phoneNumberField.getText(),
                           genderBox.getSelectedItem().toString().charAt(0),
                           jobField.getText(),
                           martialBox.getSelectedItem().toString().charAt(0),
@@ -259,7 +275,6 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
         } catch (SQLException ex){
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_registerBtnActionPerformed
 
     /**
@@ -299,6 +314,7 @@ public class pushParticipantDetailsFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressField;
+    private javax.swing.JButton back_homeBtn;
     private javax.swing.JTextField birthPlaceField;
     private javax.swing.JTextField dateField;
     private javax.swing.JTextField emailField;
